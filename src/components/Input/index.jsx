@@ -1,35 +1,52 @@
-import { Controller } from "react-hook-form"
-import { ErrorMessage, InputView, Label } from "./styles"
+import { Controller } from "react-hook-form";
+import { ErrorMessage, IconButton, InputRow, InputView, Label } from "./styles";
+import { Eye, EyeSlash } from "@phosphor-icons/react";
+import { useState } from "react";
 
 export const Input = ({
-    label,
-    name,
-    control
+  label,
+  control,
+  name,
+  placeholder,
+  type = 'text',
 }) => {
-    return (
-        <Controller
-            name={name}
-            control={control}
-            render={({ field, fieldState: { error } }) => (
-                <InputView isError={(!!error)}>
-                    <Label>{label}</Label>
+  const [show, setShow] = useState(false);
 
-                    <input
-                        placeholder={label}
-                        {...field}
-                    />
+  return (
+    <Controller
+      name={name}
+      control={control}
+      render={({ field, fieldState: {error}}) => (
+        <InputView>
+          <Label>{label}</Label>
 
-                    {
-                        error && (
-                            <ErrorMessage>{error.message}</ErrorMessage>
-                        )
+          <InputRow $error={!!error}>
+            <input
+              placeholder={placeholder ?? label}
+              type={!show ? type : 'text'}
+              {...field}
+            />
 
-                        }
-
-                </InputView>
-            )
-
+            {
+              type === 'password' && (
+                <IconButton onClick={() => setShow((value) => !value)} type="button" $error={!!error}>
+                  {
+                    !show
+                      ? (<Eye />)
+                      : (<EyeSlash />)
+                  }
+                </IconButton>
+              )
             }
-        />
-    )
-}       
+          </InputRow>
+
+          {
+            error && (
+              <ErrorMessage>{error.message}</ErrorMessage>
+            )
+          }
+        </InputView>
+      )}
+    />
+  );
+};

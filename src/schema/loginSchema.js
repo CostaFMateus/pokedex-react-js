@@ -1,9 +1,9 @@
 import * as yup from "yup"
 
-const message = 'Campo Obrigatório'
+const message = 'Required Field'
 
 const loginSchema = yup.object({
-    username: yup.string().required(message),
+    username: yup.string().min(5, 'Minimun 5 Characters').required(message),
     password: yup.string().required(message)
 })
 
