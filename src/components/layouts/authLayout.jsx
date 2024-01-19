@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import pokeball from '../../assets/pokeball.svg'
+
+import pokeball from '../../assets/pokeball.svg';
 
 export const AuthLayout = styled.section`
   width: 100%;
@@ -10,4 +11,4 @@ export const AuthLayout = styled.section`
   background-repeat: no-repeat;
   background-clip: border-box;
   background-color: ${({ theme }) => theme.colors.primary};
-`
+`;

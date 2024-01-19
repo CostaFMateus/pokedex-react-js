@@ -1,12 +1,12 @@
 import api from "../config/api";
 
-export async function getAllPokemon(page, perPage) {
+export async function register(name, username, password, confirmPassword) {
   try {
-    const { data } = await api.get('/pokemon', {
-      params: {
-        page,
-        perPage,
-      },
+    const { data } = await api.post('/auth/register', {
+      name,
+      username,
+      password,
+      confirmPassword,
     });
 
     return data;
