@@ -1,9 +1,7 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-
 import logo from '../../assets/logo.svg';
 import { Input } from "../../components/Input";
-
 import registerSchema from '../../schema/registerSchema';
 import { Spacing } from "../../components/Spacing";
 import { Logo } from "../../components/Logo";
@@ -12,9 +10,14 @@ import { Main } from "../../components/Main";
 import { Button } from "../../components/Button";
 import { useNavigate } from "react-router-dom";
 import { register } from "../../services/authServices";
+import { useStore } from "../../store";
 
 export default function Register() {
   const navigate = useNavigate();
+  
+  const {
+    user,
+  } = useStore()
 
   const {
     handleSubmit,
@@ -28,7 +31,7 @@ export default function Register() {
       name: 'Ridam',
       username: 'ridam',
       password: '123456',
-      confirmPassword: '123456',
+      confirmPassword: '123456'
     },
     mode: 'onChange',
   });
@@ -39,11 +42,18 @@ export default function Register() {
       username,
       password,
       confirmPassword,
-    } = data;
+    } = data
 
-    const { message } = await register(name, username, password, confirmPassword);
+    const { sucess, message, result } = await register(name, username, password, confirmPassword);
 
     alert(message);
+
+    if (sucess) {
+      user.setUserData(result)
+      
+      navigate('/')
+    }
+
   };
 
   return (

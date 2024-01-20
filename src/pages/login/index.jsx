@@ -1,9 +1,7 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-
 import logo from '../../assets/logo.svg';
 import { Input } from "../../components/Input";
-
 import loginSchema from '../../schema/loginSchema';
 import { Spacing } from "../../components/Spacing";
 import { Logo } from "../../components/Logo";
